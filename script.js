@@ -13,10 +13,10 @@ function calcular() {
   const [horas2, minutos2] = inputHoras2.split(':').map(Number);
   
   const data1 = new Date();
-  data1.setHours(horas1, minutos1, 0);
+  data1.setHours(horas1, minutos1, 0, 0); // Zera segundos e milissegundos para precisão
 
   const data2 = new Date();
-  data2.setHours(horas2, minutos2, 0);
+  data2.setHours(horas2, minutos2, 0, 0); // Zera segundos e milissegundos para precisão
 
   // Calcule a diferença em milissegundos
   let diferencaEmMili = data2.getTime() - data1.getTime();
@@ -48,7 +48,25 @@ function calcular() {
     resultado = 'Não há diferença de tempo.';
   }
 
-  // Exiba o resultado na tela
-  document.getElementById('resp').innerHTML = `A diferença de tempo é de: <strong>${resultado}</strong>.`;
-}
+  // Lógica para cobrança de acomptos: dispara a partir de 4h10min (250 min)
+  let mensagemAcomptos = '';
+  let acomptos = 0;
 
+  if (diferencaEmMinutos >= 250) { // 4 horas e 10 minutos exatos ou mais
+    // Divide o total de minutos por 240 (4 horas) e arredonda para baixo
+    acomptos = Math.floor(diferencaEmMinutos / 240);
+  }
+  
+  if (acomptos > 0) {
+    mensagemAcomptos = `<br>Mensagem: <strong>cobrar ${acomptos} acompt${acomptos > 1 ? 's' : ''}</strong>`;
+  }
+
+  // Lógica para horário especial (19hs)
+  let mensagemEspecial = '';
+  if (horas1 >= 19 || horas2 >= 19) {
+    mensagemEspecial = '<br><strong>cobrar TX add horario especial</strong>';
+  }
+
+  // Exiba o resultado na tela
+  document.getElementById('resp').innerHTML = `A diferença de tempo é de: <strong>${resultado}</strong>.${mensagemAcomptos}${mensagemEspecial}`;
+}
