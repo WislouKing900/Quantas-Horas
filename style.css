@@ -1,5 +1,8 @@
 body {
     background-image: url(balança.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
