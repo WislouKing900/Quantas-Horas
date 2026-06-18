@@ -1,9 +1,10 @@
 function calcular() {
   const inputHoras1 = document.getElementById('horas1').value;
   const inputHoras2 = document.getElementById('horas2').value;
+  
 
   if (!inputHoras1 || !inputHoras2) {
-    document.getElementById('resp').innerHTML = 'Por favor, insira os dois horários.';
+    document.getElementById('resp').innerHTML = 'Por favor, preencha pelo menos os horatios.';
     return;
   }
 
@@ -53,9 +54,11 @@ function calcular() {
 
   // Lógica para horário especial
   let mensagemEspecial = '';
-  if (horas1 >= 19 || horas2 >= 19) {
+
+  if (horas1 >= 19 || horas2 >= 19 || horas1 <= 7 || horas2 <= 7 || horas2 < horas1) {
+
     mensagemEspecial = '<br><strong>cobrar TX add horario especial</strong>';
   }
-
+  
   document.getElementById('resp').innerHTML = `A diferença de tempo é de: <strong>${resultado}</strong>.${mensagemAcomptos}${mensagemEspecial}`;
 }
