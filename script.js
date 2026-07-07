@@ -55,7 +55,7 @@ function calcular() {
   // Lógica para horário especial
   let mensagemEspecial = '';
 
-  if (horas1 >= 19 || horas2 >= 19 || horas1 <= 7 || horas2 <= 7 || horas2 < horas1) {
+  if (horas1 >= 19 || horas2 >= 19 || horas1 <= 6 || horas2 <= 6 || horas2 < horas1) {
 
     mensagemEspecial = '<br><strong>cobrar TX add horario especial</strong>';
   }
